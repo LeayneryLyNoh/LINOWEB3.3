@@ -1,0 +1,12 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="#14213D"/>
+  <circle cx="60" cy="60" r="58" fill="none" stroke="#2F4C86" stroke-width="1.5" opacity="0.5"/>
+  <!-- Techo / roof -->
+  <path d="M32 56 L60 32 L88 56" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Alero / eave line -->
+  <line x1="28" y1="57" x2="92" y2="57" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+  <!-- Puerta / door -->
+  <rect x="49" y="57" width="22" height="30" rx="4" fill="#FFFFFF"/>
+  <!-- Pin de entrega / delivery pin -->
+  <circle cx="60" cy="32" r="5.5" fill="#8FA8DA"/>
+</svg>
