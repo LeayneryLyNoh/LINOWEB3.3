@@ -606,11 +606,7 @@ function filterCat(cat){
   document.getElementById('catalogo').scrollIntoView({behavior:'smooth'});
 }
 
-function addToCart(id){
-  cart[id] = (cart[id] || 0) + 1;
-  updateCartUI();
-  openDrawer();
-}
+function addToCart(id){2  cart[id] = (cart[id] || 0) + 1;3  updateCartUI();4 5  const p = products.find(x => x.id === id);6  showToast(`✅ ${p.name} agregado`);7}
 
 function changeQty(id, delta){
   if(!cart[id]) return;
