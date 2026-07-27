@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LINOH · Calidad, garantía y comodidad en la puerta de tu hogar</title>
-<link rel="icon" href="files/linoh-logo-icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -192,7 +191,7 @@
   .showcase-media{
     min-height:360px;position:relative;display:flex;align-items:flex-end;padding:28px;
     background:linear-gradient(135deg, rgba(20,33,61,0.78) 0%, rgba(20,33,61,0.3) 100%),
-      url('files/linoh-cover.jpg') center/cover no-repeat;
+      url('files/linoh_e_i_r_l_cover.jpg') center/cover no-repeat;
   }
   .showcase-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.18) 100%);}
   .showcase-overlay{position:relative;z-index:1;color:#fff;max-width:440px;}
@@ -660,49 +659,18 @@ function closeDrawer(){
   document.getElementById('overlay').classList.remove('open');
 }
 
-function generateOrderNumber(){
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-  const rand = String(Math.floor(Math.random()*900)+100);
-  return `LN-${y}${m}${day}-${rand}`;
-}
-
 function sendQuote(){
   const ids = Object.keys(cart);
   if(ids.length === 0){ alert('Añade al menos un producto a tu cotización.'); return; }
-
-  const orderNum = generateOrderNumber();
-  const today = new Date().toLocaleDateString('es-PE');
-
-  let subtotal = 0;
-  const itemLines = ids.map(id => {
+  let lines = ['Hola LINOH, quiero cotizar el siguiente pedido:', ''];
+  let total = 0;
+  ids.forEach(id => {
     const p = products.find(x => x.id === id);
-    const lineTotal = p.price * cart[id];
-    subtotal += lineTotal;
-    return `${p.name} (${p.pres}) x${cart[id]} — S/ ${lineTotal.toFixed(2)}`;
+    const subtotal = p.price * cart[id];
+    total += subtotal;
+    lines.push(`• ${p.name} (${p.pres}) x${cart[id]} — S/ ${subtotal.toFixed(2)}`);
   });
-
-  const shipping = 0;
-  const total = subtotal + shipping;
-
-  const lines = [
-    '🧾 *COTIZACIÓN LINOH*',
-    `N° de pedido: *${orderNum}*`,
-    `Fecha: ${today}`,
-    '',
-    '```',
-    ...itemLines,
-    '```',
-    '',
-    `Subtotal: S/ ${subtotal.toFixed(2)}`,
-    `Envío: S/ ${shipping.toFixed(2)} (gratis)`,
-    `*TOTAL: S/ ${total.toFixed(2)}*`,
-    '',
-    '📍 Nuevo Chimbote'
-  ];
-
+  lines.push('', `Total estimado: S/ ${total.toFixed(2)}`);
   const text = encodeURIComponent(lines.join('\n'));
   window.open(`https://wa.me/51924137024?text=${text}`, '_blank');
 }
