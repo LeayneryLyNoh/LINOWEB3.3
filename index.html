@@ -576,7 +576,7 @@
         <span class="gadget-badge">📲</span>
       </div>
       <p style="color:var(--ink-soft);margin:12px 0 22px;">Déjanos tus datos y te escribimos para armar tu pedido o resolver cualquier duda.</p>
-      <form onsubmit="event.preventDefault(); alert('Gracias, nos pondremos en contacto contigo pronto.'); this.reset();">
+      <form onsubmit="sendContactWhatsApp(event)">
         <div class="field"><label>👤 Nombre</label><input type="text" required></div>
         <div class="field"><label>🏢 Negocio (opcional)</label><input type="text"></div>
         <div class="field"><label>📞 WhatsApp / Teléfono</label><input type="tel" required></div>
@@ -618,6 +618,21 @@
 <div id="toast" class="toast"></div>
 
 <script>
+const WA_PHONE = '51924137024';
+function sendContactWhatsApp(e){
+  e.preventDefault();
+  const form = e.target;
+  const fields = form.querySelectorAll('.field input, .field textarea');
+  const name = (fields[0] && fields[0].value.trim()) || '';
+  const business = (fields[1] && fields[1].value.trim()) || '';
+  const tel = (fields[2] && fields[2].value.trim()) || '';
+  const msg = (fields[3] && fields[3].value.trim()) || '';
+  const text = `Nuevo contacto desde sitio web:\nNombre: ${name}\nNegocio: ${business}\nTeléfono: ${tel}\nMensaje: ${msg}`;
+  const url = 'https://api.whatsapp.com/send?phone=' + WA_PHONE + '&text=' + encodeURIComponent(text);
+  window.open(url, '_blank');
+  form.reset();
+}
+
 const products = [
   {id:'p1', cat:'familia', sku:'CF-001', name:'Aceite vegetal', pres:'Botella 1 L', price:9.90},
   {id:'p2', cat:'familia', sku:'CF-002', name:'Arroz extra', pres:'Bolsa 5 kg', price:21.50},
